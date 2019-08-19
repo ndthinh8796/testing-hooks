@@ -57,24 +57,26 @@ const MasterLayout = (props) => {
   const elRef = useRef([...Array(12)].map(() => createRef()));
 
   useEffect(() => {
-    const tl = anime.timeline({
-      easing: 'easeOutExpo',
-      duration: 1000,
-      complete: () => {
-        dispatch({ type: 'showHeader' });
-      },
-    });
+    setTimeout(() => {
+      const tl = anime.timeline({
+        easing: 'easeOutExpo',
+        duration: 1000,
+        complete: () => {
+          dispatch({ type: 'showHeader' });
+        },
+      });
 
-    tl.add({
-      targets: elRef.current.map(el => el.current),
-      backgroundColor: 'rgb(197, 197, 255)',
-      delay: anime.stagger(200),
-    });
+      tl.add({
+        targets: elRef.current.map(el => el.current),
+        backgroundColor: 'rgb(197, 197, 255)',
+        delay: anime.stagger(200),
+      });
 
-    tl.add({
-      targets: elRef.current.map(el => el.current),
-      opacity: 0.2,
-    });
+      tl.add({
+        targets: elRef.current.map(el => el.current),
+        opacity: 0.2,
+      });
+    }, 500);
   }, []);
 
   return (

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { withNamespaces } from 'react-i18next';
 import Fab from '@material-ui/core/Fab';
 import PropTypes from 'prop-types';
@@ -11,11 +11,16 @@ const TranslateButton = (props) => {
 
   const { state, dispatch } = useContext(RootContext);
 
-  console.log(props);
+  useEffect(() => {
+    console.log(i18n);
+    if (state.currentLanguage === i18n.language) {
+      dispatch({ type: 'changeLanguage' });
+    }
+  }, []);
 
   const changeLanguage = () => {
-    dispatch({ type: 'changeLanguage' });
     i18n.changeLanguage(state.currentLanguage);
+    dispatch({ type: 'changeLanguage' });
   };
 
   return (
@@ -27,7 +32,7 @@ const TranslateButton = (props) => {
 
 TranslateButton.propTypes = {
   i18n: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  className: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  className: PropTypes.string.isRequired,
 };
 
 export default withNamespaces()(TranslateButton);
